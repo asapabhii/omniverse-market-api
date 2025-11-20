@@ -3,24 +3,23 @@ Omniverse Market API - FastAPI Main Application
 Author: Abhi
 Email: dankalu.work@gmail.com
 
-A production-ready API-first engine for ingesting and normalizing 
+A production-ready API-first engine for ingesting and normalizing
 Kalshi and Polymarket data for forecasting and trading models.
 """
 
 import logging
 from contextlib import asynccontextmanager
-from typing import Dict, Any
+from typing import Any, Dict
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from api.routes import markets, ingest
+from api.routes import ingest, markets
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -35,11 +34,7 @@ async def lifespan(app: FastAPI):
 
 def create_envelope(data: Any = None, ok: bool = True, meta: Dict = None) -> Dict:
     """Create standardized API response envelope."""
-    return {
-        "ok": ok,
-        "meta": meta or {},
-        "data": data
-    }
+    return {"ok": ok, "meta": meta or {}, "data": data}
 
 
 # Create FastAPI application
@@ -49,7 +44,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 # Add CORS middleware
@@ -71,7 +66,7 @@ async def health_check():
     """Health check endpoint."""
     return create_envelope(
         data={"status": "healthy", "service": "omniverse-market-api"},
-        meta={"timestamp": "2024-01-01T00:00:00Z"}
+        meta={"timestamp": "2024-01-01T00:00:00Z"},
     )
 
 
@@ -81,10 +76,8 @@ async def not_found_handler(request, exc):
     return JSONResponse(
         status_code=404,
         content=create_envelope(
-            data=None,
-            ok=False,
-            meta={"error": "Resource not found"}
-        )
+            data=None, ok=False, meta={"error": "Resource not found"}
+        ),
     )
 
 
@@ -95,13 +88,12 @@ async def internal_error_handler(request, exc):
     return JSONResponse(
         status_code=500,
         content=create_envelope(
-            data=None,
-            ok=False,
-            meta={"error": "Internal server error"}
-        )
+            data=None, ok=False, meta={"error": "Internal server error"}
+        ),
     )
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
