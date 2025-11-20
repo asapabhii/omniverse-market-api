@@ -1,6 +1,7 @@
 # Omniverse Market API
 
 **Author:** Abhinav
+
 **Engine:** Omniverse Market API (Full-Stack)
 
 A production-ready FastAPI-based engine for ingesting and normalizing prediction market data from Kalshi and Polymarket. Designed for forecasting and trading model consumption with comprehensive API endpoints, mock fallbacks, and robust error handling.
