@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "Omniverse Market API",
+    "description": "API collection for Omniverse Market API - Prediction market data ingestion and normalization",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check API health status"
+      }
+    },
+    {
+      "name": "Markets",
+      "item": [
+        {
+          "name": "Get All Markets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets"]
+            },
+            "description": "Retrieve all available markets"
+          }
+        },
+        {
+          "name": "Get Markets by Provider",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets?provider=kalshi",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets"],
+              "query": [
+                {
+                  "key": "provider",
+                  "value": "kalshi",
+                  "description": "Filter by provider (kalshi, polymarket)"
+                }
+              ]
+            },
+            "description": "Get markets filtered by provider"
+          }
+        },
+        {
+          "name": "Search Markets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets?q=Biden",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Biden",
+                  "description": "Search query"
+                }
+              ]
+            },
+            "description": "Search markets by query"
+          }
+        },
+        {
+          "name": "Get Specific Market",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets/KALSHI-PRES2024",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets", "KALSHI-PRES2024"]
+            },
+            "description": "Get detailed information for a specific market"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Market Data",
+      "item": [
+        {
+          "name": "Get Market Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets/KALSHI-PRES2024/price",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets", "KALSHI-PRES2024", "price"]
+            },
+            "description": "Get current price for a market"
+          }
+        },
+        {
+          "name": "Get Market Timeseries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets/KALSHI-PRES2024/timeseries?interval=1h",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets", "KALSHI-PRES2024", "timeseries"],
+              "query": [
+                {
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Time interval (1m, 5m, 1h, 1d)"
+                },
+                {
+                  "key": "start",
+                  "value": "2024-01-01T00:00:00Z",
+                  "description": "Start date (ISO format)",
+                  "disabled": true
+                },
+                {
+                  "key": "end",
+                  "value": "2024-01-02T00:00:00Z",
+                  "description": "End date (ISO format)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get historical timeseries data for a market"
+          }
+        },
+        {
+          "name": "Get Market Orderbook",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets/KALSHI-PRES2024/orderbook?depth=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets", "KALSHI-PRES2024", "orderbook"],
+              "query": [
+                {
+                  "key": "depth",
+                  "value": "10",
+                  "description": "Order book depth"
+                }
+              ]
+            },
+            "description": "Get current order book for a market"
+          }
+        },
+        {
+          "name": "Get Market Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/markets/KALSHI-PRES2024/events?limit=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["markets", "KALSHI-PRES2024", "events"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of events"
+                },
+                {
+                  "key": "since",
+                  "value": "2024-01-01T00:00:00Z",
+                  "description": "Events since timestamp",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get recent events for a market"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Development",
+      "item": [
+        {
+          "name": "Sync Kalshi Data",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ingest/kalshi/sync",
+              "host": ["{{baseUrl}}"],
+              "path": ["ingest", "kalshi", "sync"]
+            },
+            "description": "Trigger data synchronization for Kalshi provider"
+          }
+        },
+        {
+          "name": "Sync Polymarket Data",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ingest/polymarket/sync",
+              "host": ["{{baseUrl}}"],
+              "path": ["ingest", "polymarket", "sync"]
+            },
+            "description": "Trigger data synchronization for Polymarket provider"
+          }
+        }
+      ]
+    }
+  ]
+}

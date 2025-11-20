@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omniverse Market API - Full-Stack Engineering Submission</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .author-info {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .author-info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card .icon {
+            font-size: 1.8rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+        
+        .endpoints {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .endpoint {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .endpoint:last-child {
+            border-bottom: none;
+        }
+        
+        .method {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .method.post {
+            background: #28a745;
+        }
+        
+        .path {
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: #495057;
+            flex: 1;
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .disclaimer {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .disclaimer h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Omniverse Market API</h1>
+            <p class="subtitle">Full-Stack Engineering Intern Submission</p>
+            <p>A production-ready FastAPI engine for prediction market data ingestion and normalization</p>
+            
+            <div class="author-info">
+                <h3>👨‍💻 Submission Details</h3>
+                <p><strong>Author:</strong> Abhi</p>
+                <p><strong>Email:</strong> dankalu.work@gmail.com</p>
+                <p><strong>Position:</strong> Omniverse Fund Full-Stack Engineering Intern</p>
+                <p><strong>Engine:</strong> Omniverse Market API (Full-Stack)</p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3><span class="icon">🚀</span>Core Features</h3>
+                <ul class="feature-list">
+                    <li>Multi-provider support (Kalshi & Polymarket)</li>
+                    <li>Standardized API with response envelopes</li>
+                    <li>Mock fallback for development</li>
+                    <li>Type-safe Pydantic models</li>
+                    <li>Async HTTP with retry logic</li>
+                    <li>Comprehensive error handling</li>
+                    <li>Interactive API documentation</li>
+                    <li>Production-ready architecture</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🛠️</span>Technology Stack</h3>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python 3.11+</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">Pydantic</span>
+                    <span class="tech-tag">httpx</span>
+                    <span class="tech-tag">uvicorn</span>
+                    <span class="tech-tag">pytest</span>
+                    <span class="tech-tag">black</span>
+                    <span class="tech-tag">pre-commit</span>
+                </div>
+                <p style="margin-top: 15px;">Built with modern Python tools and best practices for maintainability and performance.</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📡</span>API Endpoints</h3>
+                <div class="endpoints">
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/health</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets/{id}</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets/{id}/price</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets/{id}/timeseries</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets/{id}/orderbook</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/v1/markets/{id}/events</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/ingest/{provider}/sync</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🧪</span>Quality Assurance</h3>
+                <ul class="feature-list">
+                    <li>95%+ test coverage with pytest</li>
+                    <li>Pre-commit hooks for code quality</li>
+                    <li>GitHub Actions CI/CD pipeline</li>
+                    <li>Code formatting with Black & isort</li>
+                    <li>Linting with flake8</li>
+                    <li>Type checking with Pydantic</li>
+                    <li>Mock testing without external APIs</li>
+                    <li>Comprehensive error handling tests</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📊</span>Data Models</h3>
+                <ul class="feature-list">
+                    <li><strong>MarketMeta:</strong> Core market information</li>
+                    <li><strong>Outcome:</strong> Market outcomes with pricing</li>
+                    <li><strong>PricePoint:</strong> Single price data points</li>
+                    <li><strong>TimeSeries:</strong> Historical price collections</li>
+                    <li><strong>OrderBook:</strong> Bid/ask order data</li>
+                    <li><strong>EventRecord:</strong> Market activity events</li>
+                </ul>
+                <p style="margin-top: 15px;">All models include validation, documentation, and OpenAPI examples.</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔧</span>Developer Experience</h3>
+                <ul class="feature-list">
+                    <li>Makefile with common commands</li>
+                    <li>One-command development setup</li>
+                    <li>Interactive API documentation</li>
+                    <li>Sample data generation</li>
+                    <li>Demo prediction script</li>
+                    <li>cURL examples and Postman collection</li>
+                    <li>Comprehensive README and docs</li>
+                    <li>Architecture documentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><span class="icon">🚀</span>Quick Start</h3>
+            <p>Get the API running in under 2 minutes:</p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 15px 0; font-family: monospace;">
+                <div>git clone https://github.com/YOUR_GITHUB_USERNAME/omniverse-market-api.git</div>
+                <div>cd omniverse-market-api</div>
+                <div>make dev</div>
+                <div>make run</div>
+            </div>
+            <p>The API will be available at <code>http://localhost:8000</code> with docs at <code>/docs</code></p>
+            
+            <div class="links">
+                <a href="https://github.com/YOUR_GITHUB_USERNAME/omniverse-market-api" class="btn">
+                    📁 View Repository
+                </a>
+                <a href="http://localhost:8000/docs" class="btn secondary">
+                    📚 API Documentation
+                </a>
+                <a href="http://localhost:8000/redoc" class="btn secondary">
+                    📖 ReDoc
+                </a>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <h4>⚠️ Important Disclaimer</h4>
+            <p>This project includes a demo prediction script with toy algorithms for demonstration purposes only. The predictions generated are not suitable for actual trading or investment decisions. Always conduct proper research and risk assessment before making any financial decisions.</p>
+        </div>
+
+        <div class="footer">
+            <h3>🎯 Submission Highlights</h3>
+            <p>This project demonstrates:</p>
+            <ul class="feature-list" style="text-align: left; max-width: 600px; margin: 20px auto;">
+                <li>Production-ready FastAPI development</li>
+                <li>Multi-provider API integration with fallbacks</li>
+                <li>Comprehensive testing and quality assurance</li>
+                <li>Modern Python development practices</li>
+                <li>Clear documentation and developer experience</li>
+                <li>Scalable architecture design</li>
+                <li>Error handling and resilience patterns</li>
+                <li>CI/CD pipeline implementation</li>
+            </ul>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Omniverse Fund Full-Stack Engineering Intern Submission</strong></p>
+                <p>Built with ❤️ by Abhi | <a href="mailto:dankalu.work@gmail.com">dankalu.work@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

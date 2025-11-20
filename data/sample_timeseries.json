@@ -1,0 +1,54 @@
+{
+  "markets": [
+    {
+      "id": "KALSHI-PRES2024",
+      "title": "Will Joe Biden win the 2024 US Presidential Election?",
+      "description": "Market resolves to Yes if Joe Biden wins the 2024 presidential election",
+      "provider": "kalshi",
+      "status": "active",
+      "category": "politics",
+      "created_at": "2024-01-01T00:00:00Z",
+      "close_date": "2024-11-05T23:59:59Z",
+      "settle_date": "2024-11-06T12:00:00Z",
+      "outcomes": [
+        {"id": "yes", "name": "Yes", "price": 0.65, "volume": 15420.50},
+        {"id": "no", "name": "No", "price": 0.35, "volume": 8930.25}
+      ],
+      "total_volume": 24350.75,
+      "liquidity": 5420.30
+    },
+    {
+      "id": "POLY-CRYPTO2024",
+      "title": "Will Bitcoin reach $100,000 by end of 2024?",
+      "description": "Market resolves to Yes if Bitcoin reaches $100,000 USD by December 31, 2024",
+      "provider": "polymarket",
+      "status": "active",
+      "category": "crypto",
+      "created_at": "2024-01-01T00:00:00Z",
+      "close_date": "2024-12-31T23:59:59Z",
+      "settle_date": "2025-01-01T12:00:00Z",
+      "outcomes": [
+        {"id": "yes", "name": "Yes", "price": 0.42, "volume": 28750.80},
+        {"id": "no", "name": "No", "price": 0.58, "volume": 19240.60}
+      ],
+      "total_volume": 47991.40,
+      "liquidity": 8750.20
+    }
+  ],
+  "timeseries": {
+    "KALSHI-PRES2024": [
+      {"timestamp": "2024-01-01T00:00:00Z", "price": 0.65, "volume": 125.50, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T01:00:00Z", "price": 0.651, "volume": 98.30, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T02:00:00Z", "price": 0.649, "volume": 156.80, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T03:00:00Z", "price": 0.653, "volume": 203.40, "outcome_id": "yes"}
+    ],
+    "POLY-CRYPTO2024": [
+      {"timestamp": "2024-01-01T00:00:00Z", "price": 0.42, "volume": 245.70, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T01:00:00Z", "price": 0.418, "volume": 189.20, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T02:00:00Z", "price": 0.422, "volume": 312.50, "outcome_id": "yes"},
+      {"timestamp": "2024-01-01T03:00:00Z", "price": 0.425, "volume": 278.90, "outcome_id": "yes"}
+    ]
+  },
+  "generated_at": "2024-01-01T00:00:00Z",
+  "version": "1.0.0"
+}
