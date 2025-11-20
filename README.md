@@ -1,16 +1,15 @@
 # Omniverse Market API
 
-**Author:** Abhi  
-**Email:** dankalu.work@gmail.com  
+**Author:** Abhinav
 **Engine:** Omniverse Market API (Full-Stack)
 
 A production-ready FastAPI-based engine for ingesting and normalizing prediction market data from Kalshi and Polymarket. Designed for forecasting and trading model consumption with comprehensive API endpoints, mock fallbacks, and robust error handling.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_GITHUB_USERNAME/omniverse-market-api.git
+git clone https://github.com/asapabhii/omniverse-market-api.git
 cd omniverse-market-api
 
 # Setup development environment
@@ -22,7 +21,7 @@ make run
 
 The API will be available at `http://localhost:8000` with interactive docs at `http://localhost:8000/docs`.
 
-## 📋 Features
+##  Features
 
 - **Multi-Provider Support**: Kalshi and Polymarket data ingestion
 - **Standardized API**: Consistent response format across all endpoints
@@ -31,7 +30,7 @@ The API will be available at `http://localhost:8000` with interactive docs at `h
 - **Production Ready**: Comprehensive error handling, logging, and testing
 - **Developer Experience**: Pre-commit hooks, CI/CD, and extensive documentation
 
-## 🔧 API Endpoints
+## API Endpoints
 
 All endpoints return responses in the standardized envelope format:
 ```json
@@ -56,7 +55,7 @@ All endpoints return responses in the standardized envelope format:
 
 - `POST /api/v1/ingest/{provider}/sync` - Trigger data synchronization
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 omniverse-market-api/
@@ -70,7 +69,7 @@ omniverse-market-api/
 └── examples/              # Usage examples and collections
 ```
 
-## 🔑 Configuration
+## Configuration
 
 Copy `.env.example` to `.env` and configure your API credentials:
 
@@ -129,7 +128,7 @@ pytest tests/test_api.py -v
 pytest --cov=api --cov=models --cov=ingestion tests/
 ```
 
-## 📊 Data Models
+## Data Models
 
 ### MarketMeta
 Core market information with outcomes, volume, and metadata.
@@ -143,7 +142,7 @@ Real-time bid/ask data with configurable depth.
 ### EventRecord
 Market events (trades, price changes, etc.) with structured data.
 
-## 🔌 Provider Integration
+## Provider Integration
 
 ### Kalshi Connector
 - Endpoint: `https://trading-api.kalshi.com/trade-api/v2`
@@ -157,7 +156,7 @@ Market events (trades, price changes, etc.) with structured data.
 - Rate limiting: Built-in retry with exponential backoff
 - Mock fallback: Deterministic sample data
 
-## 📈 Demo & Examples
+## Demo & Examples
 
 ### Run Prediction Demo
 ```bash
@@ -180,7 +179,7 @@ curl "http://localhost:8000/api/v1/markets/KALSHI-PRES2024/timeseries?interval=1
 
 See `examples/curl_examples.sh` for more examples.
 
-## 🚀 Deployment
+##  Deployment
 
 ### Local Development
 ```bash
@@ -194,7 +193,7 @@ make run
 - Set up monitoring and alerting
 - Consider rate limiting and caching
 
-## 🧪 Testing & QA
+##  Testing & QA
 
 ### Quick Validation
 ```bash
@@ -217,14 +216,14 @@ GitHub Actions automatically runs:
 - Full test suite
 - Demo script validation
 
-## 📚 Documentation
+## Documentation
 
 - **API Docs**: `http://localhost:8000/docs` (Swagger UI)
 - **ReDoc**: `http://localhost:8000/redoc`
 - **Architecture**: See `ARCHITECTURE.md`
 - **Changelog**: See `CHANGELOG.md`
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -232,15 +231,11 @@ GitHub Actions automatically runs:
 4. Run `make check` to validate
 5. Submit a pull request
 
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
 ## ⚠️ Disclaimer
 
 This is a demonstration project for educational purposes. The prediction algorithms are toy implementations and should not be used for actual trading decisions. Always conduct proper research and risk assessment before making any financial decisions.
 
 ---
 
-**Omniverse Fund Full-Stack Engineering Intern Submission**  
-Built with ❤️ by Abhi
+**Omniverse Fund Full-Stack Engineering Subm**  
+by Abhi
