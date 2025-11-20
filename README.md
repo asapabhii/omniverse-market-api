@@ -1,10 +1,19 @@
 # Omniverse Market API
 
-**Author:** Abhinav
-
+**Author:** Abhinav   
 **Engine:** Omniverse Market API (Full-Stack)
 
 A production-ready FastAPI-based engine for ingesting and normalizing prediction market data from Kalshi and Polymarket. Designed for forecasting and trading model consumption with comprehensive API endpoints, mock fallbacks, and robust error handling.
+
+##  Current Status: **FULLY OPERATIONAL**
+
+ **Ready to run!** All core functionality is working:
+-  API server starts successfully
+-  All endpoints responding correctly  
+-  Mock mode working with sample data
+-  Interactive documentation available
+-  Demo script functional
+-  No external API keys required for testing
 
 ##  Quick Start
 
@@ -13,14 +22,17 @@ A production-ready FastAPI-based engine for ingesting and normalizing prediction
 git clone https://github.com/asapabhii/omniverse-market-api.git
 cd omniverse-market-api
 
-# Setup development environment
-make dev
+# Install dependencies (core packages only)
+python -m pip install fastapi uvicorn pydantic httpx python-dotenv
 
-# Run the API server
-make run
+# Generate sample data
+python data/gen_sample.py
+
+# Start the API server
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-The API will be available at `http://localhost:8000` with interactive docs at `http://localhost:8000/docs`.
+** That's it!** The API will be available at `http://localhost:8000` with interactive docs at `http://localhost:8000/docs`.
 
 ##  Features
 
@@ -31,7 +43,7 @@ The API will be available at `http://localhost:8000` with interactive docs at `h
 - **Production Ready**: Comprehensive error handling, logging, and testing
 - **Developer Experience**: Pre-commit hooks, CI/CD, and extensive documentation
 
-## API Endpoints
+##  API Endpoints
 
 All endpoints return responses in the standardized envelope format:
 ```json
@@ -56,7 +68,7 @@ All endpoints return responses in the standardized envelope format:
 
 - `POST /api/v1/ingest/{provider}/sync` - Trigger data synchronization
 
-## Architecture
+##  Architecture
 
 ```
 omniverse-market-api/
@@ -70,7 +82,7 @@ omniverse-market-api/
 └── examples/              # Usage examples and collections
 ```
 
-## Configuration
+##  Configuration
 
 Copy `.env.example` to `.env` and configure your API credentials:
 
@@ -92,11 +104,18 @@ cp .env.example .env
 
 **Mock Mode:** If no API keys are provided, the system automatically runs in mock mode with sample data.
 
-## 🧪 Development
+##  Development
 
 ### Available Commands
 
 ```bash
+# Core commands (no Makefile needed!)
+python -m pip install -r requirements.txt    # Install all dependencies
+python data/gen_sample.py                    # Generate sample data
+uvicorn api.main:app --reload                # Start development server
+python run_demo.py                           # Run prediction demo
+
+# Optional: Use Makefile if available
 make install      # Install dependencies
 make run          # Start development server
 make test         # Run test suite
@@ -119,17 +138,46 @@ The project uses:
 ### Testing
 
 ```bash
+# Install test dependencies first
+python -m pip install pytest pytest-asyncio
+
 # Run all tests
-make test
+pytest tests/ -v
 
 # Run specific test file
 pytest tests/test_api.py -v
 
-# Run with coverage
-pytest --cov=api --cov=models --cov=ingestion tests/
+# Or use Makefile if available
+make test
 ```
 
-## Data Models
+###  Troubleshooting
+
+**Server won't start?**
+```bash
+# Check if port 8000 is already in use
+netstat -an | findstr :8000
+
+# Try a different port
+uvicorn api.main:app --host 0.0.0.0 --port 8001 --reload
+```
+
+**Missing dependencies?**
+```bash
+# Install core dependencies only
+python -m pip install fastapi uvicorn pydantic httpx python-dotenv
+
+# Or install everything
+python -m pip install -r requirements.txt
+```
+
+**No sample data?**
+```bash
+# Generate sample data
+python data/gen_sample.py
+```
+
+##  Data Models
 
 ### MarketMeta
 Core market information with outcomes, volume, and metadata.
@@ -143,7 +191,7 @@ Real-time bid/ask data with configurable depth.
 ### EventRecord
 Market events (trades, price changes, etc.) with structured data.
 
-## Provider Integration
+##  Provider Integration
 
 ### Kalshi Connector
 - Endpoint: `https://trading-api.kalshi.com/trade-api/v2`
@@ -157,26 +205,42 @@ Market events (trades, price changes, etc.) with structured data.
 - Rate limiting: Built-in retry with exponential backoff
 - Mock fallback: Deterministic sample data
 
-## Demo & Examples
+##  Demo & Examples
 
-### Run Prediction Demo
+###  Test the API (Copy & Paste Ready!)
+
+Once your server is running, test these endpoints:
+
 ```bash
-make demo
-```
+# Health check
+curl http://localhost:8000/api/v1/health
 
-The demo script analyzes sample market data and generates toy predictions. **Not for actual trading use.**
-
-### API Examples
-```bash
 # Get all markets
 curl http://localhost:8000/api/v1/markets
 
 # Get specific market
 curl http://localhost:8000/api/v1/markets/KALSHI-PRES2024
 
+# Get market price
+curl http://localhost:8000/api/v1/markets/KALSHI-PRES2024/price
+
 # Get market timeseries
-curl "http://localhost:8000/api/v1/markets/KALSHI-PRES2024/timeseries?interval=1h"
+curl http://localhost:8000/api/v1/markets/KALSHI-PRES2024/timeseries
+
+# Sync provider data (development)
+curl -X POST http://localhost:8000/api/v1/ingest/kalshi/sync
 ```
+
+###  Run Prediction Demo
+```bash
+python run_demo.py
+```
+
+The demo script analyzes sample market data and generates toy predictions. **Not for actual trading use.**
+
+###  Interactive Documentation
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
 
 See `examples/curl_examples.sh` for more examples.
 
@@ -196,19 +260,28 @@ make run
 
 ##  Testing & QA
 
-### Quick Validation
+###  Quick Validation
 ```bash
-# Install and setup
-make dev
+# 1. Install dependencies
+python -m pip install fastapi uvicorn pydantic httpx python-dotenv
 
-# Run health check
+# 2. Generate sample data
+python data/gen_sample.py
+
+# 3. Start server (in background or separate terminal)
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+# 4. Test health check
 curl http://localhost:8000/api/v1/health
 
-# Run tests
-make test
+# 5. Test markets endpoint
+curl http://localhost:8000/api/v1/markets
 
-# Run demo
-make demo
+# 6. Run demo script
+python run_demo.py
+
+# 7. Visit interactive docs
+# Open browser: http://localhost:8000/docs
 ```
 
 ### CI/CD Pipeline
@@ -217,14 +290,14 @@ GitHub Actions automatically runs:
 - Full test suite
 - Demo script validation
 
-## Documentation
+##  Documentation
 
 - **API Docs**: `http://localhost:8000/docs` (Swagger UI)
 - **ReDoc**: `http://localhost:8000/redoc`
 - **Architecture**: See `ARCHITECTURE.md`
 - **Changelog**: See `CHANGELOG.md`
 
-## Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -232,11 +305,11 @@ GitHub Actions automatically runs:
 4. Run `make check` to validate
 5. Submit a pull request
 
-## ⚠️ Disclaimer
+##  Disclaimer
 
 This is a demonstration project for educational purposes. The prediction algorithms are toy implementations and should not be used for actual trading decisions. Always conduct proper research and risk assessment before making any financial decisions.
 
 ---
 
-**Omniverse Fund Full-Stack Engineering Subm**  
-by Abhi
+**Omniverse Fund Full-Stack Engineering Intern Sub**  
+ by Abhi
