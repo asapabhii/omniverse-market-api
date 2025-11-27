@@ -1,7 +1,7 @@
 # Omniverse Market API
 
-**Author:** Abhinav   
-**Engine:** Omniverse Market API (Full-Stack)
+**Author:** Abhi
+**Engine:** Omniverse Market API 
 
 A production-ready FastAPI-based engine for ingesting and normalizing prediction market data from Kalshi and Polymarket. Designed for forecasting and trading model consumption with comprehensive API endpoints, mock fallbacks, and robust error handling.
 
@@ -251,13 +251,6 @@ See `examples/curl_examples.sh` for more examples.
 make run
 ```
 
-### Production Considerations
-- Set `DEBUG=false` in environment
-- Use proper API keys (not mock mode)
-- Configure logging levels
-- Set up monitoring and alerting
-- Consider rate limiting and caching
-
 ##  Testing & QA
 
 ###  Quick Validation
@@ -284,12 +277,6 @@ python run_demo.py
 # Open browser: http://localhost:8000/docs
 ```
 
-### CI/CD Pipeline
-GitHub Actions automatically runs:
-- Code quality checks (black, isort, flake8)
-- Full test suite
-- Demo script validation
-
 ##  Documentation
 
 - **API Docs**: `http://localhost:8000/docs` (Swagger UI)
@@ -297,13 +284,6 @@ GitHub Actions automatically runs:
 - **Architecture**: See `ARCHITECTURE.md`
 - **Changelog**: See `CHANGELOG.md`
 
-##  Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make changes with tests
-4. Run `make check` to validate
-5. Submit a pull request
 
 ##  Disclaimer
 
