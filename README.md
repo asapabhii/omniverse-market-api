@@ -310,6 +310,4 @@ GitHub Actions automatically runs:
 This is a demonstration project for educational purposes. The prediction algorithms are toy implementations and should not be used for actual trading decisions. Always conduct proper research and risk assessment before making any financial decisions.
 
 ---
-
-**Omniverse Fund Full-Stack Engineering Intern Sub**  
- by Abhi
+Abhi
